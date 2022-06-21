@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+<style type="text/css">
+div#layer { background:black; height:50px; }
+</style>
+
+
+
+<script type="text/javascript">
+
+
+
+// set div to 100vw on resize
+function resizeHandlr(e) {
+    const screenWidth = window.innerWidth;
+    document.getElementById("layer").style.width = screenWidth;
+}
+
+
+// 초기화 함수
+function initialize() {
+    document.addEventListener("resize", resizeHandlr);
+}
+
+
+document.addEventListener("DOMContentLoaded", initalize);
+
+
+</script>
+
+
+
+</head>
+<body>
+    
+<div id="layer"></div>
+
+</body>
+</html>
