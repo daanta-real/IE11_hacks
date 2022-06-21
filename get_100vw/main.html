@@ -9,7 +9,8 @@
 
 
 <style type="text/css">
-div#layer { background:black; height:50px; }
+body { margin:0; padding:0; border:0; }
+div#test { background:black; height:50px; border:1px solid red; box-sizing: border-box; }
 </style>
 
 
@@ -18,20 +19,37 @@ div#layer { background:black; height:50px; }
 
 
 
-// set div to 100vw on resize
+// Main functions
+
+// Get ?vw in px (like x-vw; default return = 1vw)
+// roundOption: true → Math.ceil / false → Math.floor / null → Math.round / unset(undefined) → original value
+function vw(val, roundOption) {
+    const number = window.innerWidth * (val || 1) / 100;
+    let result = number;
+    
+    switch(roundOption) {
+        case true : result = Math.ceil (val); break;
+        case false: result = Math.floor(val); break;
+        case null : result = Math.round(val); break;
+        default   : break;
+    }
+    return result;
+}
+
+// Set test div to 50vw on resize
 function resizeHandlr(e) {
-    const screenWidth = window.innerWidth;
-    document.getElementById("layer").style.width = screenWidth;
+    console.log("set to 50vw = ", vw(50), "px");
+    document.getElementById("test").style.width = vw(50) + "px";
 }
 
 
-// 초기화 함수
+// initially runs after document loaded
 function initialize() {
-    document.addEventListener("resize", resizeHandlr);
+    window.addEventListener("resize", resizeHandlr);
 }
 
 
-document.addEventListener("DOMContentLoaded", initalize);
+document.addEventListener("DOMContentLoaded", initialize);
 
 
 </script>
@@ -41,7 +59,7 @@ document.addEventListener("DOMContentLoaded", initalize);
 </head>
 <body>
     
-<div id="layer"></div>
+<div id="test"></div>
 
 </body>
 </html>
