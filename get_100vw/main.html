@@ -25,9 +25,9 @@ div#test { background:black; height:50px; border:1px solid red; box-sizing: bord
 // Check out the sample values (when the page width is 500px; Chrome, IE)
 
 // Non-HTML-standard props
-console.log(document.body.offsetWidth); // 500 500
-console.log(document.body.scrollWidth); // 500 500
-console.log(document.body.clientWidth); // 500 500
+console.log(document.body.clientWidth); // 500 500; RECOMMENDED for getting VW; Only in-screen page width (excluding border, scroll bar layers)
+console.log(document.body.scrollWidth); // 500 500; Real content width, Including scrollable area
+console.log(document.body.offsetWidth); // 500 500; Entire page width
 
 // HTML5 standard props
 console.log(window.innerWidth); // 500 517
