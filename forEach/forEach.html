@@ -16,9 +16,9 @@
 
 
 
-// We can't use .forEach() function with "NodeList" Class,
-// Therefore document.querySelectorAll().forEach() also can't be run.
-// We must use transitional for() function to make a loop code.
+// The IE don't have .forEach() function in "NodeList" Class.
+// Therefore if we execute document.querySelectorAll().forEach() the IE can't run the code.
+// We must use transitional for() function to make an IE compatiable loop code of querySelectorAll.
 function execute() {
     const list = document.querySelectorAll("div");
     for (let i = 0, length = list.length; i < length; i++) {
