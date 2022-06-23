@@ -16,16 +16,19 @@
 
 
 
+// 1. Description
+
 // We can't use .forEach() function with "NodeList" Class,
 // Therefore document.querySelectorAll().forEach() also can't be run.
 // We must use transitional for() function to make a loop code.
+
+// 2. Example
 function execute() {
     const list = document.querySelectorAll("div");
     for (let i = 0, length = list.length; i < length; i++) {
         console.log(list[i].innerText);
     }
 }
-
 
 // run execute() after finished document loading
 document.addEventListener("DOMContentLoaded", execute);
