@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+<style type="text/css">
+body { margin:0; padding:0; border:0; }
+div#test { background:black; height:50px; border:1px solid red; box-sizing: border-box; }
+</style>
+
+
+
+<script type="text/javascript">
+
+
+// 1. Description
+
+// IE 11 
+
+// Non-HTML-standard props
+console.log(document.body.clientWidth); // 500 500; RECOMMENDED for getting VW; Only in-screen page width (excluding border, scroll bar layers)
+console.log(document.body.scrollWidth); // 500 500; Real content width, Including scrollable area
+console.log(document.body.offsetWidth); // 500 500; Entire page width
+
+// HTML5 standard props
+console.log(window.innerWidth); // 500 517
+console.log(window.outerWidth); // 500 533
+
+// Be arware. If you are to distinguish MEDIA QUERY's screen length (not VW),
+// you must use window's width, instead avobe things
+console.log(window.innerWidth);
+
+
+// 2. Main functions
+
+// Get ?vw in px (like x-vw; default return = 1vw)
+// roundOption: true → Math.ceil / false → Math.floor / null → Math.round / unset(undefined) → original value
+function vw(val, roundOption) {
+    const number = window.innerWidth * (val || 1) / 100;
+    let result = number;
+    
+    switch(roundOption) {
+        case true : result = Math.ceil (val); break;
+        case false: result = Math.floor(val); break;
+        case null : result = Math.round(val); break;
+        default   : break;
+    }
+    return result;
+}
+
+// Set test div to 50vw on resize
+function resizeHandlr(e) {
+    console.log("set to 50vw = ", vw(50), "px");
+    document.getElementById("test").style.width = vw(50) + "px";
+}
+
+
+// initially runs after document loaded
+function initialize() {
+    window.addEventListener("resize", resizeHandlr);
+}
+
+
+document.addEventListener("DOMContentLoaded", initialize);
+
+
+</script>
+
+
+
+</head>
+<body>
+    
+<div id="test"></div>
+
+</body>
+</html>

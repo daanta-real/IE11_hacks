@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exo test</title>
+<script type="text/javascript">
+function unescapeEntityCode(txt) {
+    var result = "";
+    for(var i = 0, len = txt.length; i < len; i++) result += '&#' + i.charCodeAt(0) + ';';
+}
+var rawStr = "&#4368&#4454&#4361&#4467&#4368&#4467.jpg";
+function testnormalize() {
+    var textnode1 = document.createTextNode(.replace(/[\u00A0-\u9999<>\&]/g);
+    var textnode2 = document.createTextNode(rawStr, );
+    var sp = document.createElement("span");
+
+    sp.appendChild(textnode1);
+    sp.appendChild(textnode2);
+
+alert(sp.innerHTML);
+sp.normalize();
+alert(sp.innerHTML);
+}
+</script>
+</head>
+<body>
+<button onclick="testnormalize()">testnormalize</button>
+</body>
+</html>
+ 
