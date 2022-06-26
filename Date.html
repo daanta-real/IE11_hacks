@@ -18,55 +18,19 @@ div#test { background:black; height:50px; border:1px solid red; box-sizing: bord
 <script type="text/javascript">
 
 
+
 // 1. Description
 
-// IE 11 
+// IE 11 Date object works differently from others.
 
-// Non-HTML-standard props
-console.log(document.body.clientWidth); // 500 500; RECOMMENDED for getting VW; Only in-screen page width (excluding border, scroll bar layers)
-console.log(document.body.scrollWidth); // 500 500; Real content width, Including scrollable area
-console.log(document.body.offsetWidth); // 500 500; Entire page width
+// 1. You can make an Date object with date string in internet browsers.
+// If the string length is longer than required by the standard,
+// common modern browsers can automatically cut the overflowed strings, so it is no problem for easy use.
+// But IE 11 detects the string too strictly. If you do this in IE, it returns only an error.
 
-// HTML5 standard props
-console.log(window.innerWidth); // 500 517
-console.log(window.outerWidth); // 500 533
+var a = new Date("2022-02-02 02:02:02"); // All browsers OK
+var b = new Date("2022-02-02 02:02:02.0") // All other modern browsers OK but only IE returns an error.
 
-// Be arware. If you are to distinguish MEDIA QUERY's screen length (not VW),
-// you must use window's width, instead avobe things
-console.log(window.innerWidth);
-
-
-// 2. Main functions
-
-// Get ?vw in px (like x-vw; default return = 1vw)
-// roundOption: true → Math.ceil / false → Math.floor / null → Math.round / unset(undefined) → original value
-function vw(val, roundOption) {
-    const number = window.innerWidth * (val || 1) / 100;
-    let result = number;
-    
-    switch(roundOption) {
-        case true : result = Math.ceil (val); break;
-        case false: result = Math.floor(val); break;
-        case null : result = Math.round(val); break;
-        default   : break;
-    }
-    return result;
-}
-
-// Set test div to 50vw on resize
-function resizeHandlr(e) {
-    console.log("set to 50vw = ", vw(50), "px");
-    document.getElementById("test").style.width = vw(50) + "px";
-}
-
-
-// initially runs after document loaded
-function initialize() {
-    window.addEventListener("resize", resizeHandlr);
-}
-
-
-document.addEventListener("DOMContentLoaded", initialize);
 
 
 </script>
