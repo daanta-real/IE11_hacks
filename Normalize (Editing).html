@@ -1,9 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener("DOMContentLoaded", function() {
+
 function normalize (node) {
+    if (!node) return;
+    if (node.nodeType == 3) {
+        while (node.nextSibling && node.nextSibling.nodeType == 3) {
+            node.nodeValue += node.nextSibling.nodeValue;
+            node.parentNode.removeChild(node.nextSibling);
+        }
+    } else normalize(node.firstChild);
+    normalize(node.nextSibling);
 }
+
+function decodeHtmlEntity(str){ 
+    var textarea = document.createElement("textarea");
+    textarea.style.display = "none";
+    textarea.innerHTML = "&#4368&#4454&#4361&#4467&#4368&#4467.jpg";
+    document.body.appendChild(textarea);
+
+    var result = textarea.value;
+    textarea.parentNode.removeChild(textarea);
+
+    return result;
+}
+    function decodeHtmlEntity(str){ 
+  var textarea = document.createElement("textarea");  
+  textarea.innerHTML = str;
+  document.body.appendChild(textarea);
+
+  var result = textarea.value;
+  textarea.normalize();
+
+  return result;
+
+ }
+
+var result = decodeHtmlEntity("&#4368&#4454&#4361&#4467&#4368&#4467.jpg");
+console.log(result);
+
+function textUnicodeNormalizeAssemblr_all(text) {
+    // 영어가 아닌지, 글자 끝에 받침이 있는지 확인해야 함
+}
+
+function textUnicodeNormalizeAssemblr_one(text) {
+
+    // 변수 설정
+    var letterTop = text[0] || '';
+    var letterMid = text[1] || '';
+    var letterBot = text[2] || '';
+
+    // 중성이 없을 경우 초성 그 자체를 최종글자로 회신
+    if (!letterMid) return letterTop;
+
+    // 중성 유니코드
+    var letterMid_unicode = letterMid.charCodeAt(0);
+
+    // 초성 연결자
+    var letterTop_connector = [
+        'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ',
+        'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ',
+        'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+    ];//.reduce((acc, cur, idx) => ({ ...acc, [cur]: idx }), {});
+
+    // 종성 연결자
+    var letterMid_connector = [
+        '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ',
+        'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ',
+        'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ',
+        'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+    ];//.reduce((acc, cur, idx) => ({ ...acc, [cur]: idx }), {});
+
+    // 코드 연산 수행할 첫 기준점 잡기
+    var unicodeStartPoint_consonant = 12623;
+    var unicodeStartPoint_hangul = 44032;
+
+    // 초중종성 잡기
+    var idx_top = letterTop_connector.indexOf(letterTop);
+    var idx_mid = letterMid_unicode - unicodeStartPoint_consonant;
+    var idx_bot = letterMid_connector.indexOf(letterMid);//letterBot_connector[letterBot];
+
+    // 최종 글자 반환
+    return String.fromCharCode(
+        unicodeStartPoint_hangul
+        + idx_top * 588
+        + idx_mid * 28
+        + idx_bot
+    );
+
+}
+
+44032
++ ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'].indexOf(letterTop) * 588
++ 
+
+
+console.log(textUnicodeNormalizeAssemblr([result[0], result[1]]));
+    
+    console.log(decodeHtmlEntity("&#4368&#4454&#4361&#4467&#4368&#4467.jpg"));
+    
+});
 </script>
 </head>
 <body>
