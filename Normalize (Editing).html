@@ -92,9 +92,25 @@ function textUnicodeNormalizeAssemblr_one(text) {
 
 }
 
-44032
-+ ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'].indexOf(letterTop) * 588
-+ 
+function textNormalize_one(charArr) {
+
+    // 각 스트링 원소 대해 실행
+    for(var i = 0, charArrLen = charArr.length; i < charArrLen; i++) {
+
+    }
+
+    // 변수 설정
+    var letterTop = text[i] || '';
+    var letterMid = text[i + 1] || '';
+    var letterBot = text[i + 2] || '';
+
+    // 예외 회신
+    if(letterTop == undefined || letterTop == null || letterTop == "") return ""; // 한글아닐때
+    if(letterMid == undefined || letterMid == null || letterMid == "") return letterTop; // 초성만 있음
+
+    // 계산값 회신
+}
+
 
 
 console.log(textUnicodeNormalizeAssemblr([result[0], result[1]]));
