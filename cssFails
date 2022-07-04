@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<style type="text/css">
+
+</style>
+
+
+<script type="text/javascript">
+
+
+
+// 1. Description
+
+// 1) IE11 never ever support 'min-content', 'max-content' keyword.
+// 2) IE11 can't accept 'min-height', 'max-height' of child node of flex box,
+//    so if you want to use it,
+//    ⑴ 'flex-direction = column' to flex box
+//    ⑵ 'min-height = inherit' to target child's after pseudo element
+//    ⑶ 'min-height = your target value' to target child element
+
+function execute() {
+    var div1 = document.getElementById("div1");
+}
+
+// run execute() after finished document loading
+document.addEventListener("DOMContentLoaded", execute);
+
+
+</script>
+
+
+</head>
+<body>
+
+
+
+    <div id='1'>1</div>
+
+
+
+</body>
+</html>
