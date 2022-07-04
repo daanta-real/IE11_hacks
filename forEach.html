@@ -23,7 +23,7 @@
 // We must use transitional for() function to make an IE compatiable loop code of querySelectorAll.
 
 function execute() {
-    const list = document.querySelectorAll("div");
+    var list = document.querySelectorAll("div");
     for (let i = 0, length = list.length; i < length; i++) {
         console.log(list[i].innerText);
     }
