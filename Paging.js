@@ -19,8 +19,8 @@ function getPagingProps(p) {
     p.currView = Math.ceil(p.currPage/p.pagesPerView + 1) - 1;
 
     // min, max
-    p.max = p.currView * p.pagesPerView;
-    p.min = p.max - p.pagesPerView + 1;
+    p.max = Math.min(p.currView * p.pagesPerView, p.lastPage);
+    p.min = Math.max(p.max - p.pagesPerView + 1, 1);
 
     // prev, next
     p.hasPrev = p.min > p.rowsPerPage;
