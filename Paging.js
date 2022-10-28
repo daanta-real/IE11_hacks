@@ -16,11 +16,11 @@ function getPagingProps(p) {
 
     // Basic props
     p.lastPage = Math.ceil(p.totalArticles / p.rowsPerPage);
-    p.currView = Math.ceil(p.currPage/p.pagesPerView + 1) - 1;
+    p.currView = Math.ceil(p.currPage / p.pagesPerView + 1) - 1;
 
     // min, max
     p.max = Math.min(p.currView * p.pagesPerView, p.lastPage);
-    p.min = Math.max(p.max - p.pagesPerView + 1, 1);
+    p.min = Math.max((p.currView - 1) * p.pagesPerView + 1, 1);
 
     // prev, next
     p.hasPrev = p.min > p.rowsPerPage;
@@ -32,7 +32,7 @@ function getPagingProps(p) {
     p.hasFirst = p.min > p.pagesPerView * 2;
     p.hasLast = p.max + p.pagesPerView < p.lastPage;
     if(p.hasFirst) p.toFirst = 1;
-    if(p.hasLast) p.toLast = p.lastPage;
+    if(p.hasLast) p.toLast = Math.min(Math.floor(p.lastPage/p.pagesPerView) * p.pagesPerView + 1, p.lastPage);
 
     return p;
 
@@ -81,28 +81,33 @@ if(i % p.pagesPerView == 0) resultTxt += "\n";
 console.log(resultTxt);
 
 /* RESULT:
+
 currPage: 1, totalArticles: 97, rowsPerPage: 3, pagesPerView: 7
-PAGE.....1 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....2 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....3 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....4 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....5 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....6 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....7 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....8 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE.....9 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....10 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....11 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....12 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....13 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....14 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...33
-PAGE....15 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....16 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....17 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....18 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....19 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....20 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
-PAGE....21 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...33
+
+PAGE.....1 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....2 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....3 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....4 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....5 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....6 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....7 / VIEW_ROUND.....1 / PAGE.....1 ~ ....7     │     <<..0 & .null     │     <..0 & .null     │     >..1 & .true     │     >>..1 & ...29
+
+PAGE.....8 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE.....9 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE....10 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE....11 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE....12 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE....13 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+PAGE....14 / VIEW_ROUND.....2 / PAGE.....8 ~ ...14     │     <<..0 & .null     │     <..1 & ....1     │     >..1 & .true     │     >>..1 & ...29
+
+PAGE....15 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....16 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....17 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....18 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....19 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....20 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+PAGE....21 / VIEW_ROUND.....3 / PAGE....15 ~ ...21     │     <<..1 & ....1     │     <..1 & ....8     │     >..1 & .true     │     >>..1 & ...29
+
 PAGE....22 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
 PAGE....23 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
 PAGE....24 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
@@ -110,8 +115,10 @@ PAGE....25 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1    
 PAGE....26 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
 PAGE....27 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
 PAGE....28 / VIEW_ROUND.....4 / PAGE....22 ~ ...28     │     <<..1 & ....1     │     <..1 & ...15     │     >..1 & .true     │     >>..0 & .null
-PAGE....29 / VIEW_ROUND.....5 / PAGE....29 ~ ...35     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
-PAGE....30 / VIEW_ROUND.....5 / PAGE....29 ~ ...35     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
-PAGE....31 / VIEW_ROUND.....5 / PAGE....29 ~ ...35     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
-PAGE....32 / VIEW_ROUND.....5 / PAGE....29 ~ ...35     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
+
+PAGE....29 / VIEW_ROUND.....5 / PAGE....29 ~ ...33     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
+PAGE....30 / VIEW_ROUND.....5 / PAGE....29 ~ ...33     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
+PAGE....31 / VIEW_ROUND.....5 / PAGE....29 ~ ...33     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
+PAGE....32 / VIEW_ROUND.....5 / PAGE....29 ~ ...33     │     <<..1 & ....1     │     <..1 & ...22     │     >..0 & false     │     >>..0 & .null
+
 */
