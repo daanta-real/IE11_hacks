@@ -30,7 +30,7 @@
 if(!String.prototype.replaceAll) String.prototype.replaceAll = function(from, to) {
     // - g: Global; Find all patterns in whole scope of object
     // - i: Don't distinguish UpperCase and LowerCase
-    return this.replace(/from/g, to);
+    return this.replace(new RegExp(from, "g"), to);
 }
 
 
