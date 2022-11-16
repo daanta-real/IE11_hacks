@@ -15,14 +15,22 @@
 <script type="text/javascript">
 
 
-
-// 1. Description
-
-// IE doesn't support String.prototype.replaceAll() function, so you need to replace your code with this
-// g: Global; Find all patterns in whole scope of object
-// i: Don't distinguish UpperCase and LowerCase
-function strReplaceAll(str, from, to) {
-    return str.replace(from, to);
+/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
+    
+// IE doesn't support String.prototype.replaceAll() function, so you need to define new prototype
+if(!String.prototype.replaceAll) String.prototype.replaceAll = function(from, to) {
+    // - g: Global; Find all patterns in whole scope of object
+    // - i: Don't distinguish UpperCase and LowerCase
+    return this.replace(/from/g, to);
 }
 
 
