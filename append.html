@@ -39,6 +39,7 @@ if(!Element.prototype.appendChild) Element.prototype.appendChild = function(el) 
 }
 
 // way 2) use .appendChild() instead of .append()
+// Before using it you should know that if you want append all childNodes of NodeList you can append it just one by one
 $("body").append(document.createElement("div"));      // (X)
 $("body").appendChild(document.createElement("div")); // (O)
 
