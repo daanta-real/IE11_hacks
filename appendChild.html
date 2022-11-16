@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<style type="text/css">
+
+</style>
+
+
+<script type="text/javascript">
+
+
+
+// 1. Description
+
+// IE doesn't support .append() method for Node(Element) object.
+// So if you want to use .append() use one of the way descripted below.
+// But before applying you should know this:
+//    ① Only accepts 'Node Objects': Element.append() allows you to also append string objects, whereas Node.appendChild() only accepts Node objects.
+//    ② Chaining: Element.append() has no return value, whereas Node.appendChild() returns the appended Node object.
+//    ③ ONLY ONE: Element.append() can append several nodes and strings, whereas Node.appendChild() can only append one node.
+//    - MDN says
+
+  
+  
+// 2. Ways to solve the problem
+  
+// way 1) you should pre-define a pseudo one, though it is not really same as original
+if(!Element.prototype.appendChild) Element.prototype.appendChild = function(el) {
+  // If el is an NodeList(Element Array), append all childs one by one
+  if(NodeList.prototype.isPrototypeOf(el) || el.indexOf() > 0) for(var i in el) Element.appendChild(el[i]);
+  // If el is sole Element, just append it
+  else Element.appendChild(el);
+}
+
+// way 2) use .appendChild() instead of .append()
+$("body").append(document.createElement("div"));      // (X)
+$("body").appendChild(document.createElement("div")); // (O)
+
+
+  
+</script>
+
+
+</head>
+<body></body>
+</html>
