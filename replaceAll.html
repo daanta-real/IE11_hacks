@@ -16,12 +16,16 @@
 
 
 
-// IE doesn't support String.prototype.replaceAll(), so you need to define a new prototype
+// IE doesn't support String.prototype.replaceAll(), so you need to define an additional prototype
 // ※ I used 'g'(global; apply to all text) as default RegExp option because this is replace'ALL'
 if(!String.prototype.replaceAll) String.prototype.replaceAll = function(from, to) {
     if(from instanceof RegExp === false) from = new RegExp(from, "g");
     return this.replace(from, to);
 }
+    
+// or using code below is a good way to use replaceAll without modifying existing prototypes
+"내용".replace(/내용/g, "ㅇㅇㅇ");
+>>>>> 내용
 
 
 
