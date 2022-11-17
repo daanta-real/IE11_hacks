@@ -15,22 +15,12 @@
 <script type="text/javascript">
 
 
-/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-/* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    /* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing *//* editing */
-    
+
 // IE doesn't support String.prototype.replaceAll() function, so you need to define new prototype
+// ※ I used 'g' option as default RegExp option because this is replace'ALL'
 if(!String.prototype.replaceAll) String.prototype.replaceAll = function(from, to) {
-    // - g: Global; Find all patterns in whole scope of object
-    // - i: Don't distinguish UpperCase and LowerCase
-    return this.replace(new RegExp(from, "g"), to);
+    if(from instanceof RegExp === false) from = new RegExp(from, "g");
+    return this.replace(from, to);
 }
 
 
